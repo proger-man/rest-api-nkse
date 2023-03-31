@@ -2,17 +2,16 @@ const db = require("../db");
 
 class UserController {
   async createAdmin(req, res) {
-    const { login, password, id } = req.body;
-    if (id == "4&sh&fe7#5Kx41") {
-      try {
+    const { login, password } = req.body;
+    try {
         const newAdmin = await db.query(
           "INSERT INTO admins (login, password) values ($1, $2) RETURNING *",
           [login, password]
+          res.json("Good")
         );
       } catch (err) {
         console.log(err);
       }
-    }
   }
 
   async createStudentData(req, res) {
