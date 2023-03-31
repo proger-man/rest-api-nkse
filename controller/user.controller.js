@@ -6,9 +6,8 @@ class UserController {
     try {
         const newAdmin = await db.query(
           "INSERT INTO admins (login, password) values ($1, $2) RETURNING *",
-          [login, password]
-          res.json("Good")
-        );
+          [login, password]);
+      res.json("Good")
       } catch (err) {
         console.log(err);
       }
