@@ -15,7 +15,7 @@ class UserController {
 
   async createStudentData(req, res) {
     const { section, room, name, surname, patronymic, group } = req.body;
-    if (section !== undefined && room !== undefined && name !== undefined && surname !== undefined && patronymic !== undefined && group !== undefined)
+    if (section !== undefined && room !== undefined && name !== undefined && surname !== undefined && group !== undefined)
     {
       const newStudentData = await db.query(
         "INSERT INTO mainDatabase (section, room, name, surname, patronymic, groupStudent) values ($1, $2, $3, $4, $5, $6) RETURNING *",
