@@ -21,7 +21,7 @@ class UserController {
         "INSERT INTO mainDatabase (section, room, name, surname, patronymic, groupStudent) values ($1, $2, $3, $4, $5, $6) RETURNING *",
         [section, room, name, surname, patronymic, group]
       );
-      res.json(newStudentData);
+      res.json('Good');
     }
     else
     {
