@@ -36,7 +36,7 @@ class UserController {
         "UPDATE mainDatabase set section = $1, room = $2, name = $3, surname = $4, patronymic = $5, groupStudent = $6 WHERE id = $7 RETURNING *",
         [Section, Room, Name, Surname, Patronymic, Group, id]
       );
-      res.json(updateData.rows[0]);
+      res.json('Good');
     } catch (err) {
       console.log(err);
     }
