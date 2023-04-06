@@ -3,7 +3,18 @@ const db = require("../db");
 class UserController {
   async createPosition(req, res) {
     const { login, password, post } = req.body;
-    try {
+    const checkLogin = await db.query(
+      "SELECT EXISTS (SELECT * FROM positions WHERE login = $1)",
+      [login]
+    );
+    const checkPassword = await db.query(
+      "SELECT EXISTS (SELECT * FROM positions WHERE password = $1)",
+      [password]
+    );
+    const isRowExistsLogin = checkLogin.rows[0];
+    const isRowExistsPassword = checkPassword.rows[0];
+    if (isRowExistsLogin.exists && isRowExistsPassword.exists) {
+       try {
         const newMentor = await db.query(
           "INSERT INTO positions (login, password, post) values ($1, $2, $3) RETURNING *",
           [login, password, post]);
@@ -12,6 +23,9 @@ class UserController {
         console.log(err);
       }
   }
+    } else {
+      res.json("Error");
+    }
 
   async createStudentData(req, res) {
     const { section, room, name, surname, patronymic, group } = req.body;
