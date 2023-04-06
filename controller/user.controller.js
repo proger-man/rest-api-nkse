@@ -69,7 +69,7 @@ class UserController {
     const isRowExistsLogin = checkLogin.rows[0];
     const isRowExistsPassword = checkPassword.rows[0];
     if (isRowExistsLogin.exists && isRowExistsPassword.exists) {
-      res.json(checkPosition.rows.post);
+      res.json(checkPosition.rows);
     } else {
       res.json("Error");
     }
