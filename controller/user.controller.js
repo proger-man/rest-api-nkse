@@ -51,21 +51,25 @@ class UserController {
     res.json("Successfully deleted");
   }
 
-  async loginAdmin(req, res) {
+  async login(req, res) {
     const { login, password } = req.body;
+    const checkPosition = await db.query(
+      "SELECT EXISTS (SELECT * FROM positions WHERE login = $1, password = $2)",
+      [login, password]
+    );
     const checkLogin = await db.query(
-      "SELECT EXISTS (SELECT * FROM admins WHERE login = $1)",
+      "SELECT EXISTS (SELECT * FROM positions WHERE login = $1)",
       [login]
     );
     const checkPassword = await db.query(
-      "SELECT EXISTS (SELECT * FROM admins WHERE password = $1)",
+      "SELECT EXISTS (SELECT * FROM positions WHERE password = $1)",
       [password]
     );
 
     const isRowExistsLogin = checkLogin.rows[0];
     const isRowExistsPassword = checkPassword.rows[0];
     if (isRowExistsLogin.exists && isRowExistsPassword.exists) {
-      res.json("Success");
+      res.json(checkPosition);
     } else {
       res.json("Error");
     }
