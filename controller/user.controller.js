@@ -14,17 +14,19 @@ class UserController {
     const isRowExistsLogin = checkLogin.rows[0];
     const isRowExistsPassword = checkPassword.rows[0];
     if (isRowExistsLogin.exists && isRowExistsPassword.exists) {
-       try {
+      try {
         const newMentor = await db.query(
           "INSERT INTO positions (login, password, post) values ($1, $2, $3) RETURNING *",
-          [login, password, post]);
-      res.json("Good")
+          [login, password, post]
+        );
+        res.json("Good");
       } catch (err) {
         console.log(err);
       }
-  } else {
+    } else {
       res.json("Error");
     }
+  }
 
   async createStudentData(req, res) {
     const { section, room, name, surname, patronymic, group } = req.body;
