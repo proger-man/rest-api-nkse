@@ -1,12 +1,12 @@
 const db = require("../db");
 
 class UserController {
-  async createAdmin(req, res) {
-    const { login, password } = req.body;
+  async createPosition(req, res) {
+    const { login, password, post } = req.body;
     try {
-        const newAdmin = await db.query(
-          "INSERT INTO admins (login, password) values ($1, $2) RETURNING *",
-          [login, password]);
+        const newMentor = await db.query(
+          "INSERT INTO positions (login, password, post) values ($1, $2, $3) RETURNING *",
+          [login, password, post]);
       res.json("Good")
       } catch (err) {
         console.log(err);
