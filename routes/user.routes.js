@@ -3,7 +3,7 @@ const router = new Router()
 const userController = require('../controller/user.controller')
 
 router.post('/adminCreate', userController.createAdmin)
-router.post('/mentorCreate', userController.mentorAdmin)
+router.post('/mentorCreate', userController.createMentor)
 router.post('/login', userController.login)
 router.post('/studentCreate', userController.createStudentData)
 
