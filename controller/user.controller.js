@@ -54,7 +54,7 @@ class UserController {
   async login(req, res) {
     const { login, password } = req.body;
     const checkPosition = await db.query(
-      "SELECT EXISTS (SELECT * FROM positions WHERE login = $1, password = $2)",
+      "SELECT EXISTS (SELECT * FROM positions WHERE login = $1 AND password = $2)",
       [login, password]
     );
     const checkLogin = await db.query(
