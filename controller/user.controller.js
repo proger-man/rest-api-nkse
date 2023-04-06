@@ -14,6 +14,8 @@ class UserController {
     const isRowExistsLogin = checkLogin.rows[0];
     const isRowExistsPassword = checkPassword.rows[0];
     if (isRowExistsLogin.exists && isRowExistsPassword.exists) {
+      res.json("Error");
+    } else {
       try {
         const newMentor = await db.query(
           "INSERT INTO positions (login, password, post) values ($1, $2, $3) RETURNING *",
@@ -23,8 +25,6 @@ class UserController {
       } catch (err) {
         console.log(err);
       }
-    } else {
-      res.json("Error");
     }
   }
 
