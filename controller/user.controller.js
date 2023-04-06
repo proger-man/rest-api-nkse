@@ -22,8 +22,7 @@ class UserController {
       } catch (err) {
         console.log(err);
       }
-  }
-    } else {
+  } else {
       res.json("Error");
     }
 
