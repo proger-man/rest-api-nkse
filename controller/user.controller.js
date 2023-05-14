@@ -1,14 +1,27 @@
 const db = require("../db");
 
 class UserController {
-  async createAdmin(req, res) {
-    const { login, password, id } = req.body;
-    if (id == "4&sh&fe7#5Kx41") {
+  async createPosition(req, res) {
+    const { login, password, post } = req.body;
+    const checkLogin = await db.query(
+      "SELECT EXISTS (SELECT * FROM positions WHERE login = $1)",
+      [login]
+    );
+    const checkPassword = await db.query(
+      "SELECT EXISTS (SELECT * FROM positions WHERE password = $1)",
+      [password]
+    );
+    const isRowExistsLogin = checkLogin.rows[0];
+    const isRowExistsPassword = checkPassword.rows[0];
+    if (isRowExistsLogin.exists && isRowExistsPassword.exists) {
+      res.json("Error");
+    } else {
       try {
-        const newAdmin = await db.query(
-          "INSERT INTO admins (login, password) values ($1, $2) RETURNING *",
-          [login, password]
+        const newMentor = await db.query(
+          "INSERT INTO positions (login, password, post) values ($1, $2, $3) RETURNING *",
+          [login, password, post]
         );
+        res.json("Good");
       } catch (err) {
         console.log(err);
       }
@@ -17,13 +30,13 @@ class UserController {
 
   async createStudentData(req, res) {
     const { section, room, name, surname, patronymic, group } = req.body;
-    if (section !== undefined && room !== undefined && name !== undefined && surname !== undefined && patronymic !== undefined && group !== undefined)
+    if (section !== undefined && room !== undefined && name !== undefined && surname !== undefined && group !== undefined)
     {
       const newStudentData = await db.query(
         "INSERT INTO mainDatabase (section, room, name, surname, patronymic, groupStudent) values ($1, $2, $3, $4, $5, $6) RETURNING *",
         [section, room, name, surname, patronymic, group]
       );
-      res.json(newStudentData);
+      res.json('Good');
     }
     else
     {
@@ -35,10 +48,10 @@ class UserController {
     const { id, Section, Room, Name, Surname, Patronymic, Group } = req.body;
     try {
       const updateData = await db.query(
-        "UPDATE mainDatabase set section = $1, room = $2, name = $3, surname = $4, patronymic = $5, groupStudent = $6 WHERE id = $6 RETURNING *",
+        "UPDATE mainDatabase set section = $1, room = $2, name = $3, surname = $4, patronymic = $5, groupStudent = $6 WHERE id = $7 RETURNING *",
         [Section, Room, Name, Surname, Patronymic, Group, id]
       );
-      res.json(updateData.rows[0]);
+      res.json('Good');
     } catch (err) {
       console.log(err);
     }
@@ -53,21 +66,25 @@ class UserController {
     res.json("Successfully deleted");
   }
 
-  async loginAdmin(req, res) {
+  async login(req, res) {
     const { login, password } = req.body;
+    const checkPosition = await db.query(
+      "SELECT post FROM positions WHERE login = $1 AND password = $2",
+      [login, password]
+    );
     const checkLogin = await db.query(
-      "SELECT EXISTS (SELECT * FROM admins WHERE login = $1)",
+      "SELECT EXISTS (SELECT * FROM positions WHERE login = $1)",
       [login]
     );
     const checkPassword = await db.query(
-      "SELECT EXISTS (SELECT * FROM admins WHERE password = $1)",
+      "SELECT EXISTS (SELECT * FROM positions WHERE password = $1)",
       [password]
     );
 
     const isRowExistsLogin = checkLogin.rows[0];
     const isRowExistsPassword = checkPassword.rows[0];
     if (isRowExistsLogin.exists && isRowExistsPassword.exists) {
-      res.json("Success");
+      res.json(checkPosition.rows);
     } else {
       res.json("Error");
     }

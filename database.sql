@@ -1,5 +1,6 @@
-create TABLE admins(
+create TABLE positions(
     id SERIAL PRIMARY KEY,
+    post VARCHAR(50),
     login VARCHAR(30),
     password VARCHAR(30)
 );

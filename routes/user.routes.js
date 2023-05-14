@@ -2,8 +2,8 @@ const Router = require('express')
 const router = new Router()
 const userController = require('../controller/user.controller')
 
-router.post('/adminCreate', userController.createAdmin)
-router.post('/admin', userController.loginAdmin)
+router.post('/positionCreate', userController.createPosition)
+router.post('/login', userController.login)
 router.post('/studentCreate', userController.createStudentData)
 
 router.get('/getSections', userController.getSections)
