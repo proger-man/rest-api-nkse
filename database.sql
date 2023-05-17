@@ -18,5 +18,6 @@ create TABLE mainDatabase(
     phone_mother VARCHAR(15),
     fullName_dad VARCHAR(100),
     phone_dad VARCHAR(15),
-    fullName_manager VARCHAR(200)
+    fullName_manager VARCHAR(200),
+    phone_manager VARCHAR(15)
 );
