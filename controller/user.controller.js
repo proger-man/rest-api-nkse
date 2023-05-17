@@ -127,6 +127,19 @@ class UserController {
       console.log(err);
     }
   }  
+  
+  async getCardStudent(req, res) {
+    const textRn = req.params.text;
+    try {
+      const student = await db.query(
+        "SELECT * FROM mainDatabase WHERE id",
+        [textRn]
+      );
+      res.json(student.rows);
+    } catch (err) {
+      console.log(err);
+    }
+  }  
 
 }
 module.exports = new UserController();
