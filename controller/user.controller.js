@@ -29,7 +29,7 @@ class UserController {
   }
 
   async createStudentData(req, res) {
-    const { section, room, name, surname, patronymic, group } = req.body;
+    const { section, room, name, surname, patronymic, group, address, phone_manager, phone_dad, phone_mother, fullname_dad, fullname_manager, fullname_mother} = req.body;
     if (section !== undefined && room !== undefined && name !== undefined && surname !== undefined && group !== undefined)
     {
       const newStudentData = await db.query(
