@@ -132,7 +132,7 @@ class UserController {
     const textRn = req.params.text;
     try {
       const student = await db.query(
-        "SELECT * FROM mainDatabase WHERE id",
+        "SELECT * FROM mainDatabase WHERE id = $1",
         [textRn]
       );
       res.json(student.rows);
