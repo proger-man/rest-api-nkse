@@ -34,7 +34,7 @@ class UserController {
     {
       const newStudentData = await db.query(
         "INSERT INTO mainDatabase (section, room, name, surname, patronymic, groupStudent, phone_manager, phone_dad, phone_mother, fullname_dad, fullname_manager, fullname_mother) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *",
-        [section, room, name, surname, patronymic, group, phone_manager, phone_dad, phone_mother, fullname_dad, fullname_manager, fullname_mother]
+        [section, room, name, surname, patronymic, group, address, phone_manager, phone_dad, phone_mother, fullname_dad, fullname_manager, fullname_mother]
       );
       res.json('Good');
     }
