@@ -11,6 +11,7 @@ router.get('/getRooms/:section', userController.getRooms)
 
 router.post('/getStudents', userController.getStudents)
 router.get('/getStudent/:text', userController.getStudent)
+router.get('/getCardStudent/:text', userController.getCardStudent)
 
 router.put('/updateStudent', userController.updateStudent)
 router.get('/deleteStudent/:id', userController.deleteStudent)
